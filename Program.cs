@@ -1,4 +1,6 @@
-﻿// Skapa budget, beloppet är hårdkodat vid utveckling.
+﻿using Utgiftskoll;
+
+// Skapa budget, beloppet är hårdkodat vid utveckling.
 var budget = new Budget { Limit = 10000m };
 
 // Tillfälliga testvärdet så att det finns något att visa vid testkörning - Tas bort senare
@@ -25,7 +27,7 @@ while (running)
    string? choice = Console.ReadLine();
 
    // Hanterar valen med en Switch-sats
-   switch(choice)
+   switch (choice)
    {
       case "1":
          Console.WriteLine("Detta val kommer snart...");
@@ -46,7 +48,7 @@ while (running)
       default:
          Console.WriteLine("Ogiltigt val, vänligen försök igen!");
          break;
-      
+
    }
 }
 
@@ -54,18 +56,18 @@ while (running)
 static void ShowExpenses(Budget budget)
 {
    Console.Clear();
-   if( budget.Expenses.Count == 0 )
+   if (budget.Expenses.Count == 0)
    {
       Console.WriteLine("Inga utgifter inlagd!");
       return;
    }
 
    Console.WriteLine("\n========== Utgifter ==========\n");
-   foreach(var e in budget.Expenses)
+   foreach (var e in budget.Expenses)
    {
       Console.WriteLine($"{e.Id}. {e.Description} ({e.Category}): {e.Amount} kr");
    }
-   
+
    Console.WriteLine($"\nBudget: {budget.Limit} kr");
    Console.WriteLine($"Spenderat: {budget.TotalSpent()} kr");
    Console.WriteLine($"Kvar: {budget.Remaining()} kr");

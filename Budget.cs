@@ -1,4 +1,5 @@
 // En mpnadsbudget, ett budgetbelopp och en lista med utgifter.
+namespace Utgiftskoll;
 
 public class Budget
 {

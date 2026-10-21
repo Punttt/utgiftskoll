@@ -1,4 +1,5 @@
 // Representerar en utgift - exempel Mat 250 kronor
+namespace Utgiftskoll;
 
 public class Expense
 {
