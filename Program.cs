@@ -30,7 +30,7 @@ while (running)
    switch (choice)
    {
       case "1":
-         Console.WriteLine("Detta val kommer snart...");
+         AddExpenseMenu(budget);
          break;
       case "2":
          ShowExpenses(budget);
@@ -61,7 +61,7 @@ static void ShowExpenses(Budget budget)
       Console.WriteLine("Inga utgifter inlagd!");
       return;
    }
-
+   
    Console.WriteLine("\n========== Utgifter ==========\n");
    foreach (var e in budget.Expenses)
    {
@@ -72,4 +72,35 @@ static void ShowExpenses(Budget budget)
    Console.WriteLine($"Spenderat: {budget.TotalSpent()} kr");
    Console.WriteLine($"Kvar: {budget.Remaining()} kr");
    Console.WriteLine("\n==============================\n");
+}
+
+// Lägger till utgift
+static void AddExpenseMenu(Budget budget)
+{
+   Console.Clear();
+   Console.WriteLine("\n====== Lägg till utgift ======\n");
+
+   string description = ReadText("Beskrivning: ");
+   decimal amount = ReadAmount("Belopp (Kr): ");
+   string category = ReadText("Kategroi: ");
+
+   budget.AddExpense(description, amount, category);
+   Console.WriteLine($"\n{description} på {amount} kr har lagts till!");
+}
+
+// Frågar efter text tills användaren skriver något som inte är tomt
+static string ReadText(string prompt)
+{
+   while (true)
+   {
+      Console.Write(prompt);
+      string? input = Console.ReadLine();
+
+      if( !string.IsNullOrWhiteSpace(input))
+      {
+         return input.Trim();
+      }
+
+      Console.WriteLine("Fältet får inte vara tomt, försök igen.");
+   }
 }
