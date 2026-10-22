@@ -82,7 +82,7 @@ static void AddExpenseMenu(Budget budget)
 
    string description = ReadText("Beskrivning: ");
    decimal amount = ReadAmount("Belopp (Kr): ");
-   string category = ReadText("Kategroi: ");
+   string category = ReadText("Kategori: ");
 
    budget.AddExpense(description, amount, category);
    Console.WriteLine($"\n{description} på {amount} kr har lagts till!");
@@ -102,5 +102,22 @@ static string ReadText(string prompt)
       }
 
       Console.WriteLine("Fältet får inte vara tomt, försök igen.");
+   }
+}
+
+// Frågar efter ett tal tills användaren skriver in ett giltigt tal större än 0
+static decimal ReadAmount(string prompt)
+{
+   while (true)
+   {
+      Console.Write(prompt);
+      string? input = Console.ReadLine();
+
+      if (decimal.TryParse(input, out decimal amount) && amount > 0)
+      {
+         return amount;
+      }
+
+      Console.WriteLine("Ange ett giltigt belopp större än 0, T.ex 250 eller 99,50 ");
    }
 }
