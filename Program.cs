@@ -1,4 +1,5 @@
-﻿using Utgiftskoll;
+﻿using System.Data.Common;
+using Utgiftskoll;
 
 // Skapa budget, beloppet är hårdkodat vid utveckling.
 var budget = new Budget { Limit = 10000m };
@@ -19,7 +20,7 @@ while (running)
    Console.WriteLine("1. Lägg till utgift");
    Console.WriteLine("2. Visa alla utgifter");
    Console.WriteLine("3. Ta bort utgift");
-   Console.WriteLine("4. Visa summa per kategori");
+   // Console.WriteLine("4. Visa summa per kategori");
    Console.WriteLine("\n5. Avsluta");
    Console.Write("\nVälj: ");
 
@@ -36,7 +37,7 @@ while (running)
          ShowExpenses(budget);
          break;
       case "3":
-         Console.WriteLine("Detta val kommer snart...");
+         RemoveExpenseMenu(budget);
          break;
       case "4":
          Console.WriteLine("Detta val kommer snart...");
@@ -46,13 +47,17 @@ while (running)
          Console.WriteLine("Tack för den här gången!");
          break;
       default:
-         Console.WriteLine("Ogiltigt val, vänligen försök igen!");
+         Console.Clear();
+         Console.WriteLine("(Ogiltigt val, vänligen försök igen!)");
          break;
 
    }
 }
 
+
+
 // Skriver ut alla utgifter,
+// ========================================================
 static void ShowExpenses(Budget budget)
 {
    Console.Clear();
@@ -65,7 +70,7 @@ static void ShowExpenses(Budget budget)
    Console.WriteLine("\n========== Utgifter ==========\n");
    foreach (var e in budget.Expenses)
    {
-      Console.WriteLine($"{e.Id}. {e.Description} ({e.Category}): {e.Amount} kr");
+      Console.WriteLine($"{e.Description} ({e.Category}): {e.Amount} kr");
    }
 
    Console.WriteLine($"\nBudget: {budget.Limit} kr");
@@ -74,7 +79,10 @@ static void ShowExpenses(Budget budget)
    Console.WriteLine("\n==============================\n");
 }
 
+
+
 // Lägger till utgift
+// ========================================================
 static void AddExpenseMenu(Budget budget)
 {
    Console.Clear();
@@ -119,5 +127,57 @@ static decimal ReadAmount(string prompt)
       }
 
       Console.WriteLine("Ange ett giltigt belopp större än 0, T.ex 250 eller 99,50 ");
+   }
+}
+
+
+
+// Låter användaren ta bort utgift genom att ange Id
+// ========================================================
+static void RemoveExpenseMenu(Budget budget)
+{
+   Console.Clear();
+   Console.WriteLine("\n======= Ta bort utgift =======\n");
+
+   // Om inga utgifter finns, avslutar direkt.
+   if ( budget.Expenses.Count == 0 )
+   {
+      Console.WriteLine("Det finns inga utgifter att ta bort.");
+      return;
+   }
+
+   // Visa lista så att användaren vet vad som ska tas bort, visa med id på varje utgift
+   foreach( var e in budget.Expenses)
+   {
+      Console.WriteLine($"[{e.Id}] {e.Description} ({e.Category}): {e.Amount} kr");
+   }
+
+   int id = ReadId("\nAnge Id på utgiften som ska tas bort: ");
+
+   // RemoveExpanse returnerar true om utgiften fanns och togs bort.
+   if( budget.RemoveExpense(id) )
+   {
+      Console.WriteLine($"\nUtgiften med id {id} har tagits bort.");
+   }
+   else
+   {
+      Console.WriteLine($"\nDet finns ingen utgift med id {id}");
+   }
+}
+
+// Frågar om ett heltal tills att användare skriver ett giltigt.
+static int ReadId(string prompt)
+{
+   while(true)
+   {
+      Console.Write(prompt);
+      string? input = Console.ReadLine();
+
+      if(int.TryParse(input, out int id))
+      {
+         return id;
+      }
+
+      Console.WriteLine("Ange ett heltar, T.ex. 2.");
    }
 }
