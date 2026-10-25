@@ -45,4 +45,13 @@ public class Budget
     {
         return Limit - TotalSpent();
     }
+
+    // Räkna ut summa av utgifter för varje kategori. 
+    // mat och Mat räknas som samma kategori.
+    public Dictionary<string, decimal> TotalByCategory()
+    {
+        return Expenses
+        .GroupBy(e => e.Category, StringComparer.OrdinalIgnoreCase)
+        .ToDictionary(g => g.Key, g => g.Sum(e => e.Amount));
+    }
 }

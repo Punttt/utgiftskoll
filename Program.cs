@@ -20,7 +20,7 @@ while (running)
    Console.WriteLine("1. Lägg till utgift");
    Console.WriteLine("2. Visa alla utgifter");
    Console.WriteLine("3. Ta bort utgift");
-   // Console.WriteLine("4. Visa summa per kategori");
+   Console.WriteLine("4. Visa summa per kategori");
    Console.WriteLine("\n5. Avsluta");
    Console.Write("\nVälj: ");
 
@@ -40,7 +40,7 @@ while (running)
          RemoveExpenseMenu(budget);
          break;
       case "4":
-         Console.WriteLine("Detta val kommer snart...");
+         ShowCategoryTotals(budget);
          break;
       case "5":
          running = false; // Avslutar while loopen
@@ -179,5 +179,26 @@ static int ReadId(string prompt)
       }
 
       Console.WriteLine("Ange ett heltar, T.ex. 2.");
+   }
+}
+
+// Visa hur mycket som spenderats i varje kkategori
+// ========================================================
+static void ShowCategoryTotals(Budget budget)
+{
+   Console.Clear();
+   Console.WriteLine("\n===== Summa per kategori =====\n");
+
+   // Om inga utgifter finns, avslutar direkt.
+   if ( budget.Expenses.Count == 0 )
+   {
+      Console.WriteLine("Det finns inga utgifter inlagd.");
+      return;
+   }
+
+   // Går igenom varje kategori och skriver ut summan
+   foreach(var item in budget.TotalByCategory())
+   {
+      Console.WriteLine($"{item.Key}: {item.Value} kr");
    }
 }
