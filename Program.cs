@@ -1,13 +1,17 @@
 ﻿using System.Data.Common;
 using Utgiftskoll;
 
-// Skapa budget, beloppet är hårdkodat vid utveckling.
-var budget = new Budget { Limit = 10000m };
+// Försök att läsa in sparad budget från fil.
+var budget = BudgetStorage.Load();
 
-// Tillfälliga testvärdet så att det finns något att visa vid testkörning - Tas bort senare
-budget.AddExpense("Hyra", 5000m, "Hushåll");
-budget.AddExpense("Bensin", 1200m, "Bil");
-budget.AddExpense("Mat", 3000m, "Hushåll");
+// Finns ingen sparad budget får användaren ange en ny.
+if ( budget == null )
+{
+   Console.WriteLine("Välkommen till Utgiftskoll! Ingen sparad budget hittades.");
+   decimal limit = ReadAmount("Ange budget för månaden i kronor: ");
+   budget = new Budget {Limit = limit };
+   BudgetStorage.Save(budget);
+}
 
 // En bool för att styra, visa meny eller itne.
 bool running = true;
@@ -93,6 +97,7 @@ static void AddExpenseMenu(Budget budget)
    string category = ReadText("Kategori: ");
 
    budget.AddExpense(description, amount, category);
+   BudgetStorage.Save(budget);
    Console.WriteLine($"\n{description} på {amount} kr har lagts till!");
 }
 
@@ -157,6 +162,7 @@ static void RemoveExpenseMenu(Budget budget)
    // RemoveExpanse returnerar true om utgiften fanns och togs bort.
    if( budget.RemoveExpense(id) )
    {
+      BudgetStorage.Save(budget);
       Console.WriteLine($"\nUtgiften med id {id} har tagits bort.");
    }
    else
