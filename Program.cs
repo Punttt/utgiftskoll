@@ -25,7 +25,8 @@ while (running)
    Console.WriteLine("2. Visa alla utgifter");
    Console.WriteLine("3. Ta bort utgift");
    Console.WriteLine("4. Visa summa per kategori");
-   Console.WriteLine("\n5. Avsluta");
+   Console.WriteLine("5. Ändra budget");
+   Console.WriteLine("\n0. Avsluta");
    Console.Write("\nVälj: ");
 
    // Läsa in användaren val
@@ -47,6 +48,9 @@ while (running)
          ShowCategoryTotals(budget);
          break;
       case "5":
+         ChangeLimitMenu(budget);
+         break;
+      case "0":
          running = false; // Avslutar while loopen
          Console.WriteLine("Tack för den här gången!");
          break;
@@ -207,4 +211,18 @@ static void ShowCategoryTotals(Budget budget)
    {
       Console.WriteLine($"{item.Key}: {item.Value} kr");
    }
+}
+
+// Uppdaterar budget-beloppet.
+// ========================================================
+static void ChangeLimitMenu(Budget budget)
+{
+   Console.Clear();
+   Console.WriteLine("\n======== Ändra budget ========\n");
+   Console.WriteLine($"Nuvarande budget: {budget.Limit} kr\n");
+
+   budget.Limit = ReadAmount("Ny budget (kr): ");
+   BudgetStorage.Save(budget);
+
+   Console.WriteLine($"Budget är nu ändrad till: {budget.Limit} kr");
 }
