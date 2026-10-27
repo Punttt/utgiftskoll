@@ -5,7 +5,7 @@ namespace Utgiftskoll;
 // Sparar och läser budgeten från JSON fil.
 public static class BudgetStorage
 {
-    // Filen som som datan finns sparad i
+    // Filen som datan finns sparad i
     private const string FilePath = "budget.json";
 
     // Sparar hela budgeten (belopp, utgifter, id)
@@ -16,7 +16,7 @@ public static class BudgetStorage
         File.WriteAllText(FilePath, json);
     }
 
-    // Läser budget från filen. Returnerar null om ingen fil finns eller om sökvägen är trasig.
+    // Läser budget från filen. Returnerar null om ingen fil finns eller om filen är trasig.
     public static Budget? Load()
     {
         if (!File.Exists(FilePath))
@@ -31,7 +31,7 @@ public static class BudgetStorage
         }
         catch(JsonException)
         {
-            // file gick inte att läsa som JSON, så vi börjar om med en ny budget.
+            // filen gick inte att läsa som JSON, så vi börjar om med en ny budget.
             return null;
         }
     }

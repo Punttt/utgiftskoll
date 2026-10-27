@@ -1,4 +1,4 @@
-// En mpnadsbudget, ett budgetbelopp och en lista med utgifter.
+// En månadsbudget, ett budgetbelopp och en lista med utgifter.
 namespace Utgiftskoll;
 
 public class Budget
@@ -12,7 +12,7 @@ public class Budget
     // Håller koll på vilket Id nästa utgift ska få
     public int NextId { get; set; } = 1;
 
-    // Lägger till en ny uppgift och ger den ett unikt Id
+    // Lägger till en ny utgift och ger den ett unikt Id
     public void AddExpense(string description, decimal amount, string category)
     {
         var expense = new Expense
@@ -27,7 +27,7 @@ public class Budget
         NextId++; // Nästa utgift får ett nummer som är +1
     }
 
-    // Tar bort utgiften med angivet Id , returnerar True om den finns.
+    // Tar bort utgiften med angivet Id , returnerar true om den finns.
     public bool RemoveExpense(int id)
     {
         int removed = Expenses.RemoveAll(e => e.Id == id);

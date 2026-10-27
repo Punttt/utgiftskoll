@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using Utgiftskoll;
+﻿using Utgiftskoll;
 
 // Försök att läsa in sparad budget från fil.
 var budget = BudgetStorage.Load();
@@ -13,7 +12,7 @@ if ( budget == null )
    BudgetStorage.Save(budget);
 }
 
-// En bool för att styra, visa meny eller itne.
+// En bool för att styra, visa meny eller inte.
 bool running = true;
 
 // Huvudloop som visar menyn tills att användaren väljer att avsluta
@@ -29,7 +28,7 @@ while (running)
    Console.WriteLine("\n0. Avsluta");
    Console.Write("\nVälj: ");
 
-   // Läsa in användaren val
+   // Läsa in användarens val
    string? choice = Console.ReadLine();
 
    // Hanterar valen med en Switch-sats
@@ -71,7 +70,7 @@ static void ShowExpenses(Budget budget)
    Console.Clear();
    if (budget.Expenses.Count == 0)
    {
-      Console.WriteLine("Inga utgifter inlagd!");
+      Console.WriteLine("Inga utgifter inlagda!");
       return;
    }
    
@@ -163,7 +162,7 @@ static void RemoveExpenseMenu(Budget budget)
 
    int id = ReadId("\nAnge Id på utgiften som ska tas bort: ");
 
-   // RemoveExpanse returnerar true om utgiften fanns och togs bort.
+   // RemoveExpense returnerar true om utgiften fanns och togs bort.
    if( budget.RemoveExpense(id) )
    {
       BudgetStorage.Save(budget);
@@ -202,7 +201,7 @@ static void ShowCategoryTotals(Budget budget)
    // Om inga utgifter finns, avslutar direkt.
    if ( budget.Expenses.Count == 0 )
    {
-      Console.WriteLine("Det finns inga utgifter inlagd.");
+      Console.WriteLine("Det finns inga utgifter inlagda.");
       return;
    }
 

@@ -12,6 +12,6 @@ public class Expense
     // Belopp i kronor, decimal används för att få exakt uträkning
     public decimal Amount { get; set; }
 
-    // Vilken kategori utgiftern hör till - exempel "Mat", "Hushåll", "Nöje"
+    // Vilken kategori utgiften hör till - exempel "Mat", "Hushåll", "Nöje"
     public string Category { get; set; } = "";
 }
