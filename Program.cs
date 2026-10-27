@@ -187,7 +187,7 @@ static int ReadId(string prompt)
          return id;
       }
 
-      Console.WriteLine("Ange ett heltar, T.ex. 2.");
+      Console.WriteLine("Ange ett heltal, t.ex. 2.");
    }
 }
 
