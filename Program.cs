@@ -210,6 +210,9 @@ static void ShowCategoryTotals(Budget budget)
    {
       Console.WriteLine($"{item.Key}: {item.Value} kr");
    }
+
+   
+   Console.WriteLine("\n==============================\n");
 }
 
 // Uppdaterar budget-beloppet.
