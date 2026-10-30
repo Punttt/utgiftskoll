@@ -1,4 +1,19 @@
-﻿using Utgiftskoll;
+﻿/*
+ * Utgiftskoll
+ * ------------------------------------------------------------
+ * Författare: Pontus Johansson (pojo2001@student.miun.se)
+ * Kurs:       Programmering i C#.NET (DT071G), Mittuniversitetet
+ * Datum:      2026-10-31
+ *
+ * Beskrivning:
+ * En konsolapplikation för att hålla koll på en månadsbudget.
+ * Användaren anger en budget, lägger till och tar bort utgifter
+ * och ser hur mycket som är spenderat och kvar, både totalt och
+ * per kategori. Datan sparas i filen budget.json så att den
+ * finns kvar när programmet startas om.
+ */
+
+using Utgiftskoll;
 
 // Försök att läsa in sparad budget från fil.
 var budget = BudgetStorage.Load();
