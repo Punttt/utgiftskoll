@@ -5,6 +5,8 @@ Användaren anger sin budget, lägger till och tar bort utgifter och ser hur myc
 
 Projektuppgift i kursen Programmering i C#.NET vid Mittuniversitetet.
 
+Länk till redovisning: https://youtu.be/yCYnuuP8xiE 
+
 ## Funktioner
 
 - Ange en budget för månaden vid första start
